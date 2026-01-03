@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WikiGuess - Daily Wikipedia Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>WikiGuess</h1>
+            <p class="subtitle">A daily Wikipedia guessing game</p>
+        </header>
+
+        <main id="game-container">
+            <div id="game-info">
+                <p>Guess today's Wikipedia article from its table of contents.</p>
+                <p>Each wrong guess reveals the next section.</p>
+            </div>
+
+            <div id="sections-container">
+                <h2>Contents</h2>
+                <ol id="sections-list" start="1"></ol>
+            </div>
+
+            <div id="guess-container">
+                <input
+                    type="text"
+                    id="guess-input"
+                    placeholder="Enter your guess..."
+                    autocomplete="off"
+                >
+                <button id="submit-guess">Submit Guess</button>
+                <p id="feedback"></p>
+            </div>
+
+            <div id="game-over" style="display: none;">
+                <h2 id="result-message"></h2>
+                <p id="article-link"></p>
+                <div id="score-display"></div>
+                <button id="share-button">Share Result</button>
+                <p id="next-puzzle">Next puzzle in: <span id="countdown"></span></p>
+            </div>
+
+            <div id="stats">
+                <p>Attempts: <span id="attempt-count">0</span> / <span id="total-sections">0</span></p>
+            </div>
+        </main>
+
+        <footer>
+            <p>A tribute to Wikipedia and the early web</p>
+            <p><a href="https://wikipedia.org">Visit Wikipedia</a></p>
+        </footer>
+    </div>
+
+    <script src="articles.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
