@@ -22,9 +22,11 @@ const gamesPlayedEl = document.getElementById("games-played");
 const winRateEl = document.getElementById("win-rate");
 const currentStreakEl = document.getElementById("current-streak");
 const bestStreakEl = document.getElementById("best-streak");
+const puzzleInfoEl = document.getElementById("puzzle-info");
 
 // Initialize game on load
 document.addEventListener("DOMContentLoaded", () => {
+  updatePuzzleInfo();
   initGame();
   setupEventListeners();
   updateCountdown();
@@ -312,6 +314,12 @@ function getShortDateString() {
   const month = now.getMonth() + 1;
   const day = now.getDate();
   return `${month}/${day}/${year}`;
+}
+
+function updatePuzzleInfo() {
+  const puzzleNum = getPuzzleNumber();
+  const dateStr = getShortDateString();
+  puzzleInfoEl.textContent = `Puzzle #${puzzleNum} - ${dateStr}`;
 }
 
 function getTodaysArticle() {

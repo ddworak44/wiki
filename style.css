@@ -70,6 +70,13 @@ h1 {
     letter-spacing: 1px;
 }
 
+.puzzle-info {
+    font-size: 0.9em;
+    color: #0645ad;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
 .subtitle {
     font-size: 0.95em;
     color: #666666;
