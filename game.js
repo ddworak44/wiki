@@ -3,6 +3,8 @@ let currentArticle = null;
 let revealedSections = [];
 let attempts = 0;
 let gameOver = false;
+let isArchiveMode = false;
+let archivePuzzleDate = null;
 
 // DOM elements
 const sectionsList = document.getElementById("sections-list");
@@ -34,23 +36,29 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function initGame() {
-  const todayArticle = getTodaysArticle();
+  const activeArticle = getActiveArticle();
 
-  if (!todayArticle) {
+  if (!activeArticle) {
     feedback.textContent =
-      "No puzzle available for today. Check back tomorrow!";
+      "No puzzle available for this date. Check the archive!";
     feedback.className = "incorrect";
     submitButton.disabled = true;
     return;
   }
 
-  currentArticle = todayArticle;
+  currentArticle = activeArticle;
   totalSections.textContent = currentArticle.sections.length;
+
+  // Show archive banner if in archive mode
+  if (isArchiveMode) {
+    showArchiveBanner();
+  }
 
   // Check localStorage for saved progress
   const savedState = loadGameState();
+  const expectedDate = isArchiveMode ? archivePuzzleDate : getDateString();
 
-  if (savedState && savedState.date === getDateString()) {
+  if (savedState && savedState.date === expectedDate) {
     // Resume saved game
     revealedSections = savedState.revealedSections;
     attempts = savedState.attempts;
@@ -180,6 +188,28 @@ function renderSections() {
   });
 }
 
+function showArchiveBanner() {
+  const banner = document.createElement('div');
+  banner.id = 'archive-banner';
+  banner.innerHTML = `
+    <strong>Archive Mode - Practice Play</strong><br>
+    Puzzle #${getPuzzleNumber(archivePuzzleDate)} - ${formatDate(archivePuzzleDate)}<br>
+    <a href="index.html">← Return to Today's Puzzle</a>
+  `;
+  const gameContainer = document.getElementById('game-container');
+  gameContainer.insertBefore(banner, gameContainer.firstChild);
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString + "T00:00:00Z");
+  return date.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC'
+  });
+}
+
 function showGameOver(won) {
   gameOver = true;
   guessInput.disabled = true;
@@ -187,7 +217,7 @@ function showGameOver(won) {
   feedback.style.display = "none";
   gameOverDiv.style.display = "block";
 
-  const puzzleNum = getPuzzleNumber();
+  const puzzleNum = getPuzzleNumber(isArchiveMode ? archivePuzzleDate : null);
 
   if (won) {
     resultMessage.textContent = `Puzzle #${puzzleNum} - You got it in ${attempts} ${
@@ -262,7 +292,7 @@ function shareResult() {
   const revealed = revealedSections.length;
   const total = currentArticle.sections.length;
   const score = generateScoreSquares();
-  const puzzleNum = getPuzzleNumber();
+  const puzzleNum = getPuzzleNumber(isArchiveMode ? archivePuzzleDate : null);
 
   const text = `WikiGuess Puzzle #${puzzleNum}\n${score}`;
 
@@ -293,16 +323,16 @@ function getDateString() {
   return `${year}-${month}-${day}`;
 }
 
-function getPuzzleNumber() {
+function getPuzzleNumber(dateString = null) {
   // Calculate days since January 3, 2026 (Puzzle #1)
-  const startDate = new Date("2026-01-03");
-  const today = new Date();
+  const startDate = new Date("2026-01-03T00:00:00Z");
+  const targetDate = dateString ? new Date(dateString + "T00:00:00Z") : new Date();
 
   // Reset time to midnight for accurate day calculation
-  startDate.setHours(0, 0, 0, 0);
-  today.setHours(0, 0, 0, 0);
+  startDate.setUTCHours(0, 0, 0, 0);
+  targetDate.setUTCHours(0, 0, 0, 0);
 
-  const diffTime = today - startDate;
+  const diffTime = targetDate - startDate;
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
   return diffDays + 1; // +1 because Jan 3 is Puzzle #1
@@ -317,14 +347,42 @@ function getShortDateString() {
 }
 
 function updatePuzzleInfo() {
-  const puzzleNum = getPuzzleNumber();
-  const dateStr = getShortDateString();
-  puzzleInfoEl.textContent = `Puzzle #${puzzleNum} - ${dateStr}`;
+  const dateStr = isArchiveMode ? archivePuzzleDate : getDateString();
+  const puzzleNum = getPuzzleNumber(isArchiveMode ? archivePuzzleDate : null);
+  const shortDateStr = isArchiveMode ? formatShortDate(archivePuzzleDate) : getShortDateString();
+  puzzleInfoEl.textContent = `Puzzle #${puzzleNum} - ${shortDateStr}`;
+}
+
+function formatShortDate(dateString) {
+  const date = new Date(dateString + "T00:00:00Z");
+  const year = String(date.getUTCFullYear()).slice(-2);
+  const month = date.getUTCMonth() + 1;
+  const day = date.getUTCDate();
+  return `${month}/${day}/${year}`;
 }
 
 function getTodaysArticle() {
   const today = getDateString();
   return ARTICLES.find((article) => article.date === today);
+}
+
+function getArticleByDate(dateString) {
+  return ARTICLES.find((article) => article.date === dateString);
+}
+
+function getActiveArticle() {
+  const dateParam = getUrlParameter('date');
+  if (dateParam) {
+    isArchiveMode = true;
+    archivePuzzleDate = dateParam;
+    return getArticleByDate(dateParam);
+  }
+  return getTodaysArticle();
+}
+
+function getUrlParameter(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
 }
 
 function updateCountdown() {
@@ -345,18 +403,21 @@ function updateCountdown() {
 
 // LocalStorage management
 function saveGameState(won = null) {
+  const dateKey = isArchiveMode ? archivePuzzleDate : getDateString();
   const state = {
-    date: getDateString(),
+    date: dateKey,
     revealedSections: revealedSections,
     attempts: attempts,
     gameOver: gameOver,
     won: won,
   };
-  localStorage.setItem("wikiguess-state", JSON.stringify(state));
+  const storageKey = isArchiveMode ? `wikiguess-archive-${archivePuzzleDate}` : "wikiguess-state";
+  localStorage.setItem(storageKey, JSON.stringify(state));
 }
 
 function loadGameState() {
-  const saved = localStorage.getItem("wikiguess-state");
+  const storageKey = isArchiveMode ? `wikiguess-archive-${archivePuzzleDate}` : "wikiguess-state";
+  const saved = localStorage.getItem(storageKey);
   return saved ? JSON.parse(saved) : null;
 }
 
@@ -393,6 +454,11 @@ function saveStats(stats) {
 }
 
 function updateStats(won) {
+  // Skip stats updates for archive mode (practice play)
+  if (isArchiveMode) {
+    return;
+  }
+
   const stats = loadStats();
   const today = getDateString();
 

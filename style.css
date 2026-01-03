@@ -436,6 +436,105 @@ a:hover {
     color: #000000;
 }
 
+/* Archive Mode Banner */
+#archive-banner {
+    background-color: #fffacd;
+    border: 2px solid #ffd700;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+#archive-banner strong {
+    color: #b8860b;
+    font-size: 1.1em;
+}
+
+#archive-banner a {
+    display: inline-block;
+    margin-top: 8px;
+    color: #0645ad;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+#archive-banner a:hover {
+    text-decoration: none;
+}
+
+/* Archive List Styles */
+#archive-intro {
+    background-color: #f8f8f8;
+    border: 2px solid #cccccc;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#archive-intro em {
+    color: #666;
+    font-size: 0.9em;
+}
+
+#archive-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.archive-item {
+    border: 2px solid #000000;
+    background-color: #ffffff;
+    transition: background-color 0.2s ease;
+}
+
+.archive-item:hover {
+    background-color: #f0f0f0;
+}
+
+.archive-item a {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    gap: 15px;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: inherit;
+    align-items: center;
+}
+
+.archive-puzzle-num {
+    font-weight: bold;
+    color: #666;
+}
+
+.archive-date {
+    color: #333;
+}
+
+.archive-answer {
+    font-weight: bold;
+    color: #0645ad;
+    text-align: right;
+}
+
+.archive-link-text {
+    margin-top: 10px;
+    font-size: 0.95em;
+}
+
+.archive-link-text a {
+    color: #0645ad;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.archive-link-text a:hover {
+    text-decoration: none;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 600px) {
     body {
@@ -478,5 +577,14 @@ a:hover {
     .modal-content {
         padding: 20px;
         width: 95%;
+    }
+
+    .archive-item a {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .archive-answer {
+        text-align: left;
     }
 }
