@@ -20,6 +20,11 @@ function scrapeWikipedia(articleName, date) {
     console.log(`Fetching: ${url}\n`);
 
     https.get(url, (res) => {
+        console.log(`\n=== API Response ===`);
+        console.log(`Status: ${res.statusCode}`);
+        console.log(`Headers:`, JSON.stringify(res.headers, null, 2));
+        console.log(`==================\n`);
+
         let data = '';
 
         res.on('data', (chunk) => {
@@ -27,8 +32,19 @@ function scrapeWikipedia(articleName, date) {
         });
 
         res.on('end', () => {
+            console.log(`\n=== Raw Response (first 2000 chars) ===`);
+            console.log(data.substring(0, 2000));
+            console.log(`\n=== Full response length: ${data.length} chars ===\n`);
+
             try {
                 const sections = extractSections(data, articleName);
+
+                console.log(`\n=== Extracted Sections ===`);
+                console.log(`Total sections found: ${sections.length}`);
+                sections.forEach((section, i) => {
+                    console.log(`  ${i + 1}. ${section}`);
+                });
+                console.log(`========================\n`);
 
                 if (sections.length === 0) {
                     console.error('No sections found. The article might not exist or has no TOC.');
