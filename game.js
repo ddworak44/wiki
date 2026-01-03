@@ -153,11 +153,13 @@ function showGameOver(won) {
     feedback.style.display = 'none';
     gameOverDiv.style.display = 'block';
 
+    const puzzleNum = getPuzzleNumber();
+
     if (won) {
-        resultMessage.textContent = `You got it in ${attempts} ${attempts === 1 ? 'guess' : 'guesses'}!`;
+        resultMessage.textContent = `Puzzle #${puzzleNum} - You got it in ${attempts} ${attempts === 1 ? 'guess' : 'guesses'}!`;
         resultMessage.style.color = '#008000';
     } else {
-        resultMessage.textContent = `Better luck tomorrow!`;
+        resultMessage.textContent = `Puzzle #${puzzleNum} - Better luck tomorrow!`;
         resultMessage.style.color = '#cc0000';
     }
 
@@ -222,9 +224,9 @@ function shareResult() {
     const revealed = revealedSections.length;
     const total = currentArticle.sections.length;
     const score = generateScoreSquares();
-    const shortDate = getShortDateString();
+    const puzzleNum = getPuzzleNumber();
 
-    const text = `WikiGuess\n${shortDate}\n${score}`;
+    const text = `WikiGuess Puzzle #${puzzleNum}\n${score}`;
 
     copyToClipboard(text);
 }
@@ -248,6 +250,21 @@ function getDateString() {
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+}
+
+function getPuzzleNumber() {
+    // Calculate days since January 3, 2026 (Puzzle #1)
+    const startDate = new Date('2026-01-03');
+    const today = new Date();
+
+    // Reset time to midnight for accurate day calculation
+    startDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    const diffTime = today - startDate;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    return diffDays + 1; // +1 because Jan 3 is Puzzle #1
 }
 
 function getShortDateString() {

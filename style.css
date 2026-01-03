@@ -32,26 +32,35 @@ header {
     top: 0;
     right: 0;
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
 
 .icon-button {
     background-color: #f8f8f8;
-    border: 2px solid #aaaaaa;
+    border: 2px solid #000000;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
+    font-family: 'Georgia', serif;
+    color: #000000;
 }
 
 .icon-button:hover {
-    background-color: #e8e8e8;
-    border-color: #000000;
+    background-color: #0645ad;
+    color: #ffffff;
+    border-color: #0645ad;
+    transform: scale(1.1);
+}
+
+.icon-button:active {
+    transform: scale(0.95);
 }
 
 h1 {
@@ -199,11 +208,15 @@ h2 {
 #score-display {
     font-size: 1.8em;
     letter-spacing: 2px;
-    margin: 20px 0;
+    margin: 20px auto;
     font-family: monospace;
     white-space: pre-line;
     line-height: 1.2;
     text-align: left;
+    display: inline-block;
+    padding: 15px;
+    background-color: #f8f8f8;
+    border: 2px solid #aaaaaa;
 }
 
 #share-button {
@@ -445,7 +458,13 @@ a:hover {
     .header-icons {
         position: static;
         justify-content: center;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+    }
+
+    .icon-button {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
     }
 
     .modal-content {
