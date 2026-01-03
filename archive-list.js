@@ -25,7 +25,6 @@ function generateArchiveList() {
         <a href="index.html?date=${article.date}">
           <span class="archive-puzzle-num">Puzzle #${puzzleNum}</span>
           <span class="archive-date">${formattedDate}</span>
-          <span class="archive-answer">${article.answer}</span>
         </a>
       </div>
     `;
