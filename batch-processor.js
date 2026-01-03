@@ -211,11 +211,11 @@ function scrapeWikipediaPromise(input) {
 }
 
 function getNextDate(lastDate) {
-  const date = lastDate ? new Date(lastDate) : new Date();
-  date.setDate(date.getDate() + 1);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
+  const date = lastDate ? new Date(lastDate + 'T00:00:00Z') : new Date();
+  date.setUTCDate(date.getUTCDate() + 1);
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(date.getUTCDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
 
