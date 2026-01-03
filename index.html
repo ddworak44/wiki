@@ -39,12 +39,36 @@
                 <h2 id="result-message"></h2>
                 <p id="article-link"></p>
                 <div id="score-display"></div>
+
+                <div id="statistics">
+                    <h3>Statistics</h3>
+                    <div id="stats-grid">
+                        <div class="stat">
+                            <div class="stat-value" id="games-played">0</div>
+                            <div class="stat-label">Played</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="win-rate">0</div>
+                            <div class="stat-label">Win %</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="current-streak">0</div>
+                            <div class="stat-label">Streak</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="best-streak">0</div>
+                            <div class="stat-label">Best</div>
+                        </div>
+                    </div>
+                </div>
+
                 <button id="share-button">Share Result</button>
                 <p id="next-puzzle">Next puzzle in: <span id="countdown"></span></p>
             </div>
 
             <div id="stats">
                 <p>Attempts: <span id="attempt-count">0</span> / <span id="total-sections">0</span></p>
+                <button id="clear-state" class="text-button">Clear State</button>
             </div>
         </main>
 

@@ -17,6 +17,11 @@ const shareButton = document.getElementById('share-button');
 const attemptCount = document.getElementById('attempt-count');
 const totalSections = document.getElementById('total-sections');
 const countdown = document.getElementById('countdown');
+const clearStateButton = document.getElementById('clear-state');
+const gamesPlayedEl = document.getElementById('games-played');
+const winRateEl = document.getElementById('win-rate');
+const currentStreakEl = document.getElementById('current-streak');
+const bestStreakEl = document.getElementById('best-streak');
 
 // Initialize game on load
 document.addEventListener('DOMContentLoaded', () => {
@@ -69,6 +74,7 @@ function setupEventListeners() {
         }
     });
     shareButton.addEventListener('click', shareResult);
+    clearStateButton.addEventListener('click', clearState);
 }
 
 function handleGuess() {
@@ -162,6 +168,10 @@ function showGameOver(won) {
     // Generate score visualization
     const score = generateScoreSquares();
     scoreDisplay.textContent = score;
+
+    // Update and display statistics
+    updateStats(won);
+    displayStatistics();
 }
 
 function generateScoreSquares() {
@@ -247,4 +257,94 @@ function saveGameState(won = null) {
 function loadGameState() {
     const saved = localStorage.getItem('wikiguess-state');
     return saved ? JSON.parse(saved) : null;
+}
+
+// Clear state function
+function clearState() {
+    if (confirm('Clear your progress for today? This will let you replay the puzzle.')) {
+        localStorage.removeItem('wikiguess-state');
+        location.reload();
+    }
+}
+
+// Statistics management
+function loadStats() {
+    const saved = localStorage.getItem('wikiguess-stats');
+    if (saved) {
+        return JSON.parse(saved);
+    }
+    return {
+        gamesPlayed: 0,
+        gamesWon: 0,
+        currentStreak: 0,
+        bestStreak: 0,
+        lastPlayedDate: null,
+        lastWonDate: null
+    };
+}
+
+function saveStats(stats) {
+    localStorage.setItem('wikiguess-stats', JSON.stringify(stats));
+}
+
+function updateStats(won) {
+    const stats = loadStats();
+    const today = getDateString();
+
+    // Only update if we haven't already recorded today's game
+    if (stats.lastPlayedDate === today) {
+        return; // Already updated today
+    }
+
+    stats.gamesPlayed++;
+
+    if (won) {
+        stats.gamesWon++;
+
+        // Calculate streak
+        const yesterday = getYesterdayString();
+        if (stats.lastWonDate === yesterday) {
+            // Continuing streak
+            stats.currentStreak++;
+        } else {
+            // New streak
+            stats.currentStreak = 1;
+        }
+
+        // Update best streak
+        if (stats.currentStreak > stats.bestStreak) {
+            stats.bestStreak = stats.currentStreak;
+        }
+
+        stats.lastWonDate = today;
+    } else {
+        // Lost - reset streak
+        stats.currentStreak = 0;
+    }
+
+    stats.lastPlayedDate = today;
+    saveStats(stats);
+}
+
+function displayStatistics() {
+    const stats = loadStats();
+
+    gamesPlayedEl.textContent = stats.gamesPlayed;
+
+    const winRate = stats.gamesPlayed > 0
+        ? Math.round((stats.gamesWon / stats.gamesPlayed) * 100)
+        : 0;
+    winRateEl.textContent = winRate;
+
+    currentStreakEl.textContent = stats.currentStreak;
+    bestStreakEl.textContent = stats.bestStreak;
+}
+
+function getYesterdayString() {
+    const date = new Date();
+    date.setDate(date.getDate() - 1);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }

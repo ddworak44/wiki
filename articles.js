@@ -25,11 +25,11 @@ const ARTICLES = [
       "Personal life",
       "Business ventures",
       "Media figure and activism",
-      "Endorsements"
-    ]
+      "Endorsements",
+    ],
   },
   {
-    date: "2026-01-04",
+    date: "2026-01-03",
     answer: "World War II",
     sections: [
       "Background",
@@ -49,8 +49,8 @@ const ARTICLES = [
       "Impact",
       "Casualties and war crimes",
       "Holocaust",
-      "Occupation"
-    ]
+      "Occupation",
+    ],
   },
   {
     date: "2026-01-05",
@@ -70,8 +70,8 @@ const ARTICLES = [
       "Development",
       "Naming",
       "Popularity",
-      "Uses"
-    ]
+      "Uses",
+    ],
   },
   {
     date: "2026-01-06",
@@ -97,8 +97,8 @@ const ARTICLES = [
       "Band members → Timeline",
       "Awards and nominations",
       "Discography",
-      "Concert tours"
-    ]
+      "Concert tours",
+    ],
   },
   {
     date: "2026-01-07",
@@ -126,8 +126,8 @@ const ARTICLES = [
       "Publications → Popular",
       "Publications → Political",
       "Publications → Works cited",
-      "Publications → Archival materials collections"
-    ]
+      "Publications → Archival materials collections",
+    ],
   },
   {
     date: "2026-01-08",
@@ -167,8 +167,8 @@ const ARTICLES = [
       "Volcanoes and humans → Benefits",
       "Volcanoes and humans → Safety considerations",
       "Volcanoes on other celestial bodies",
-      "History of volcano understanding"
-    ]
+      "History of volcano understanding",
+    ],
   },
   {
     date: "2026-01-09",
@@ -194,8 +194,8 @@ const ARTICLES = [
       "Band members → Timeline",
       "Awards and nominations",
       "Discography",
-      "Concert tours"
-    ]
+      "Concert tours",
+    ],
   },
   {
     date: "2026-01-10",
@@ -233,8 +233,8 @@ const ARTICLES = [
       "Supply chain",
       "Supply chain → Worker organizations",
       "Supply chain → Democratic Republic of the Congo",
-      "Supply chain → Citations"
-    ]
+      "Supply chain → Citations",
+    ],
   },
   {
     date: "2026-01-11",
@@ -268,9 +268,9 @@ const ARTICLES = [
       "Other applications → Medicine",
       "Other applications → Cuisine",
       "Other applications → Miscellanea",
-      "Toxicity"
-    ]
-  }
+      "Toxicity",
+    ],
+  },
 ];
 
 // You can optionally encode the articles array to prevent casual spoilers

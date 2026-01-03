@@ -206,6 +206,67 @@ h2 {
     background-color: #f0f0f0;
     border: 1px solid #cccccc;
     text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#stats p {
+    margin: 0;
+}
+
+.text-button {
+    background: none;
+    border: none;
+    color: #0645ad;
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    font-size: 0.9em;
+    padding: 0;
+}
+
+.text-button:hover {
+    color: #0b0080;
+}
+
+/* Statistics display */
+#statistics {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #cccccc;
+}
+
+#statistics h3 {
+    font-size: 1.1em;
+    font-weight: normal;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 5px;
+}
+
+#stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    text-align: center;
+}
+
+.stat {
+    padding: 10px;
+}
+
+.stat-value {
+    font-size: 2em;
+    font-weight: bold;
+    color: #5a3696;
+}
+
+.stat-label {
+    font-size: 0.85em;
+    color: #666666;
+    margin-top: 5px;
 }
 
 /* Footer */
@@ -247,5 +308,18 @@ a:hover {
 
     main {
         padding: 15px;
+    }
+
+    #stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-value {
+        font-size: 1.5em;
     }
 }
