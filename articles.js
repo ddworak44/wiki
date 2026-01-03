@@ -7,138 +7,12 @@
 
 const ARTICLES = [
   {
-    date: "2026-01-01",
-    answer: "Josh Allen",
-    sections: [
-      "Early life",
-      "College career",
-      "College career → Reedley College",
-      "College career → Wyoming",
-      "College career → College statistics",
-      "Professional career",
-      "Professional career → Pre-draft",
-      "Professional career → 2018 season",
-      "Professional career → 2019 season",
-      "Professional career → 2020 season",
-      "Professional career → 2021 season",
-      "Professional career → 2022 season",
-      "Professional career → 2023 season",
-      "Professional career → 2024 season",
-      "Professional career → 2025 season",
-      "NFL career statistics",
-      "NFL career statistics → Regular season",
-      "NFL career statistics → Postseason",
-      "Records and achievements",
-      "Records and achievements → NFL records",
-      "Records and achievements → Bills franchise records",
-      "Records and achievements → Accolades",
-      "Player profile",
-      "Personal life",
-      "Personal life → Golf",
-      "Personal life → Business ventures",
-      "Personal life → Philanthropy"
-    ]
-  },
-  {
-    date: "2026-01-02",
-    answer: "Ryan Seacrest",
-    sections: [
-      "Early life",
-      "Career",
-      "Career → Television hosting",
-      "Career → Radio hosting",
-      "Career → Television producing",
-      "Career → Business ventures",
-      "Career → Fashion",
-      "Philanthropy",
-      "Personal life",
-      "Credits",
-      "Credits → Radio",
-      "Credits → Film",
-      "Credits → Television"
-    ]
-  },
-  {
-    date: "2026-01-04",
-    answer: "Nicolás Maduro",
-    sections: [
-      "Early and personal life",
-      "Early career",
-      "Early career → Education and union work",
-      "Early career → National Assembly",
-      "Foreign minister of Venezuela",
-      "Foreign minister of Venezuela → 2006 detention in New York",
-      "Vice President of Venezuela",
-      "Vice President of Venezuela → Interim president",
-      "Presidency",
-      "Presidency → International relations",
-      "Presidency → Assassination attempts",
-      "Controversies",
-      "Controversies → Disputed presidency",
-      "Controversies → Dictatorship accusations",
-      "Controversies → Birthplace and nationality",
-      "Controversies → Conspiracy theories",
-      "Controversies → Censorship",
-      "Controversies → Human rights",
-      "Controversies → Judicial independence",
-      "Controversies → Alleged drug trafficking and money laundering incidents",
-      "Controversies → Homophobic statements",
-      "Controversies → Hunger crisis",
-      "Controversies → Corruption",
-      "Controversies → Sanctions",
-      "Capture",
-      "Public opinion",
-      "In popular culture",
-      "Awards and honours",
-      "Awards and honours → Others",
-      "Elections",
-      "Elections → 2013 presidential campaign",
-      "Elections → 2018 presidential campaign",
-      "Elections → 2024 presidential campaign",
-      "Elections → Electoral history"
-    ]
-  },
-  {
-    date: "2026-01-03",
-    answer: "Mao Zedong",
-    sections: [
-      "English romanisation of name",
-      "Early life",
-      "Early revolutionary activity",
-      "Civil War",
-      "Civil War → Nanchang and Autumn Harvest Uprisings: 1927",
-      "World War II",
-      "Leadership of China",
-      "Leadership of China → Korean War",
-      "Leadership of China → Social reform",
-      "Leadership of China → Three-anti and Five-anti Campaigns",
-      "Leadership of China → Five-year plans",
-      "Leadership of China → Military projects",
-      "Leadership of China → Great Leap Forward",
-      "Leadership of China → Split from Soviet Union",
-      "Leadership of China → Third Front",
-      "Leadership of China → Cultural Revolution",
-      "State visits",
-      "Death and aftermath",
-      "Legacy",
-      "Legacy → Assessment in China",
-      "Legacy → Assessment in Western world",
-      "Legacy → Third World",
-      "Legacy → Military strategy",
-      "Legacy → Literature",
-      "Legacy → Public image",
-      "Personal life and family",
-      "Personal life and family → Family",
-      "Writings and calligraphy",
-      "Writings and calligraphy → Literary works",
-      "Portrayal in media",
-      "Portrayal in media → General",
-      "Portrayal in media → Commentary"
-    ]
-  },
-  {
     date: "2026-01-04",
     answer: "Usain Bolt",
+    thumbnail:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Usain_Bolt_-_240422_190142_%28cropped%29.jpg/330px-25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Usain_Bolt_-_240422_190142_%28cropped%29.jpg",
+    extract:
+      "Usain St. Leo Bolt is a Jamaican retired sprinter who is widely regarded as the greatest sprinter of all time. He is an eight-time Olympic gold medalist and the world record holder in the 100 metres, 200 metres, and 4 × 100 metres relay.",
     sections: [
       "Early years",
       "Early years → Early competitions",
@@ -173,12 +47,16 @@ const ARTICLES = [
       "Statistics → National titles",
       "Statistics → Circuit wins",
       "Publications",
-      "Publications → Videos"
-    ]
+      "Publications → Videos",
+    ],
   },
   {
     date: "2026-01-05",
     answer: "Robert Downey Jr.",
+    thumbnail:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Robert_Downey_Jr._2014_Comic-Con.jpg/330px-Robert_Downey_Jr._2014_Comic-Con.jpg",
+    extract:
+      "Robert John Downey Jr. is an American actor. Known for portraying charismatic and intelligent characters over a diverse range of films, he was the highest-paid actor in Hollywood annually from 2013 to 2015. His films as a leading actor have grossed over $14.3 billion worldwide, making him one of the highest-grossing actors of all time. Downey's accolades include an Academy Award, a Daytime Emmy Award, three Golden Globe Awards, and two BAFTA Awards.",
     sections: [
       "Early life and acting background",
       "Career",
@@ -191,12 +69,16 @@ const ARTICLES = [
       "Discography",
       "Discography → Studio album",
       "Discography → Soundtrack appearances",
-      "Printed sources"
-    ]
+      "Printed sources",
+    ],
   },
   {
     date: "2026-01-06",
     answer: "Tupac Shakur",
+    thumbnail:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/2pac_edit_cropped_further.jpg/330px-2pac_edit_cropped_further.jpg",
+    extract:
+      "Tupac Amaru Shakur, also known by his stage names 2Pac and Makaveli, was an American rapper and actor. He is widely regarded as one of the greatest rappers of all time, one of the most influential musical artists of the 20th century, and a prominent political activist for Black America. He is among the best-selling music artists, having sold more than 75 million records worldwide. Some of Shakur's music addressed social injustice, political issues, and the marginalization of African Americans, but he was also synonymous with gangsta rap and violent lyrics.",
     sections: [
       "Early life",
       "Early life → Birth and ancestry",
@@ -224,12 +106,16 @@ const ARTICLES = [
       "Discography",
       "Filmography",
       "Filmography → Portrayals in film",
-      "Filmography → Documentaries"
-    ]
+      "Filmography → Documentaries",
+    ],
   },
   {
     date: "2026-01-07",
     answer: "Hillary Clinton",
+    thumbnail:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Hillary_Clinton_by_Gage_Skidmore_4_%28cropped%29.jpg/330px-Hillary_Clinton_by_Gage_Skidmore_4_%28cropped%29.jpg",
+    extract:
+      "Hillary Diane Rodham Clinton is an American politician, lawyer, and diplomat. She was the 67th United States secretary of state in the administration of Barack Obama from 2009 to 2013, a U.S. senator representing New York from 2001 to 2009, and the first lady of the United States from 1993 to 2001 as the wife of Bill Clinton. A member of the Democratic Party, she was the party's nominee in the 2016 presidential election, becoming the first woman to win a presidential nomination by a major U.S. political party and the only woman to win the popular vote for U.S. president. However, she lost the electoral college to Republican Party nominee Donald Trump. She is the only first lady of the United States to have run for elected office.",
     sections: [
       "Early life and education",
       "Early life and education → Early life",
@@ -269,12 +155,54 @@ const ARTICLES = [
       "Ancestry → Works cited",
       "Ancestry → Official",
       "Ancestry → Media coverage",
-      "Ancestry → Other"
-    ]
+      "Ancestry → Other",
+    ],
   },
   {
     date: "2026-01-08",
+    answer: "LeBron James",
+    thumbnail:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/LeBron_James_%2851959977144%29_%28cropped2%29.jpg/330px-LeBron_James_%2851959977144%29_%28cropped2%29.jpg",
+    extract:
+      'LeBron Raymone James Sr. is an American professional basketball player for the Los Angeles Lakers of the National Basketball Association (NBA). Nicknamed "King James", he is the NBA\'s all-time leading scorer and has won four NBA championships from 10 NBA Finals appearances, having made eight consecutive appearances between 2011 and 2018. He also won the inaugural NBA Cup in 2023 with the Lakers and has won three Olympic gold medals as a member of the U.S. national team. James is widely considered to be one of the greatest basketball players of all time.',
+    sections: [
+      "Early life",
+      "High school",
+      "High school → Basketball",
+      "High school → Football",
+      "Professional career",
+      "National team career",
+      "Player profile",
+      "Player profile → Offense",
+      "Player profile → Defense",
+      "Legacy",
+      "Personal life",
+      "Personal life → Health",
+      "Personal life → Public image",
+      "Activism",
+      "Activism → Philanthropy",
+      "Activism → Politics",
+      "Media figure and business interests",
+      "Media figure and business interests → Endorsements",
+      "Media figure and business interests → Entertainment",
+      "Media figure and business interests → Investments",
+      "Media figure and business interests → Professional contracts",
+      "NBA career statistics",
+      "NBA career statistics → Regular season",
+      "NBA career statistics → Playoffs",
+      "Awards and honors",
+      "Filmography",
+      "Filmography → Film",
+      "Filmography → Television",
+    ],
+  },
+  {
+    date: "2026-01-09",
     answer: "Glen Powell",
+    thumbnail:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Glen_Powell_by_Gage_Skidmore.jpg/330px-Glen_Powell_by_Gage_Skidmore.jpg",
+    extract:
+      "Glen Thomas Powell Jr. is an American actor. He began his career with small roles on television and in films including Spy Kids 3-D: Game Over (2003) and Fast Food Nation (2006). Powell acted in the action film The Expendables 3 (2014), the comedy-horror series Scream Queens (2015–2016), the teen comedy Everybody Wants Some!! (2016), the historical romance The Guernsey Literary and Potato Peel Pie Society (2018), and the romantic comedy Set It Up (2018). He also portrayed astronaut John Glenn in Hidden Figures (2016) and aviator Tom Hudner in Devotion (2022). He is the co-creator, producer, and star of the comedy series, Chad Powers (2025).",
     sections: [
       "Early life and education",
       "Career",
@@ -283,12 +211,16 @@ const ARTICLES = [
       "Filmography → Film",
       "Filmography → Television",
       "Filmography → Audio",
-      "Awards and nominations"
-    ]
+      "Awards and nominations",
+    ],
   },
   {
-    date: "2026-01-09",
+    date: "2026-01-10",
     answer: "Nelson Mandela",
+    thumbnail:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Nelson_Mandela_1994.jpg/330px-Nelson_Mandela_1994.jpg",
+    extract:
+      "Nelson Rolihlahla Mandela was a South African anti-apartheid activist and statesman who was the first president of South Africa from 1994 to 1999. He was the country's first Black head of state and the first elected in a fully representative democratic election. His administration focused on dismantling the legacy of apartheid by fostering racial reconciliation and a multiracial democracy. Ideologically an African nationalist and socialist, he served as the president of the African National Congress (ANC) party from 1991 to 1997.",
     sections: [
       "Early life",
       "Early revolutionary activity",
@@ -306,12 +238,16 @@ const ARTICLES = [
       "Personality and personal life",
       "Reception and legacy",
       "Reception and legacy → Biographies and popular media",
-      "Reception and legacy → Footnotes"
-    ]
+      "Reception and legacy → Footnotes",
+    ],
   },
   {
-    date: "2026-01-10",
+    date: "2026-01-11",
     answer: "Robert F. Kennedy Jr.",
+    thumbnail:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Robert_F._Kennedy_Jr.%2C_official_portrait_%282025%29_%28cropped_3-4%29.jpg/330px-Robert_F._Kennedy_Jr.%2C_official_portrait_%282025%29_%28cropped_3-4%29.jpg",
+    extract:
+      "Robert Francis Kennedy Jr., also known by his initials RFK Jr., is an American politician, environmental lawyer, author, conspiracy theorist, and anti-vaccine activist serving as the 26th United States secretary of health and human services since 2025. A member of the prominent Kennedy family, he is a son of Senator and U.S. attorney general Robert F. Kennedy and a nephew of U.S. president John F. Kennedy.",
     sections: [
       "Early life and education",
       "Legal career",
@@ -362,12 +298,16 @@ const ARTICLES = [
       "Personal life → Sexual assault allegations",
       "Personal life → Treatment of dead animals",
       "Selected works",
-      "Note"
-    ]
+      "Note",
+    ],
   },
   {
-    date: "2026-01-11",
+    date: "2026-01-12",
     answer: "Josh Allen",
+    thumbnail:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Josh_Allen_SEPT2021_%28cropped2%29.jpg/330px-Josh_Allen_SEPT2021_%28cropped2%29.jpg",
+    extract:
+      "Joshua Patrick Allen is an American professional football quarterback for the Buffalo Bills of the National Football League (NFL). A lightly regarded high school prospect, Allen began his college football career with the Reedley Tigers before transferring to the Wyoming Cowboys. His success at Wyoming led to him being selected seventh overall by the Bills in the 2018 NFL draft.",
     sections: [
       "Early life",
       "College career",
@@ -395,12 +335,16 @@ const ARTICLES = [
       "Personal life",
       "Personal life → Golf",
       "Personal life → Business ventures",
-      "Personal life → Philanthropy"
-    ]
+      "Personal life → Philanthropy",
+    ],
   },
   {
-    date: "2026-01-12",
+    date: "2026-01-13",
     answer: "Ryan Seacrest",
+    thumbnail:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Ryan_Seacrest_%282019%29.jpg/330px-Ryan_Seacrest_%282019%29.jpg",
+    extract:
+      "Ryan John Seacrest is an American television host and producer. Seacrest is the host of Wheel of Fortune, having hosted since replacing long-time host Pat Sajak in September 2024. Seacrest co-hosted and served as executive producer of Live with Kelly and Ryan, and has hosted other media including American Idol, American Top 40, and On Air with Ryan Seacrest. He became co-host of Dick Clark's New Year's Rockin' Eve in 2005, and he became the sole host following Clark's death in 2012.",
     sections: [
       "Early life",
       "Career",
@@ -414,12 +358,16 @@ const ARTICLES = [
       "Credits",
       "Credits → Radio",
       "Credits → Film",
-      "Credits → Television"
-    ]
+      "Credits → Television",
+    ],
   },
   {
-    date: "2026-01-13",
+    date: "2026-01-14",
     answer: "Nicolás Maduro",
+    thumbnail:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Nicol%C3%A1s_Maduro_2023_%28cropped2%29.jpg/330px-Nicol%C3%A1s_Maduro_2023_%28cropped2%29.jpg",
+    extract:
+      "Nicolás Maduro Moros is a Venezuelan politician and former union leader who served as the president of Venezuela from 2013 until he was captured by the United States government in 2026. He served as the vice president under President Hugo Chávez from 2012 to 2013, and minister of foreign affairs from 2006 to 2012.",
     sections: [
       "Early and personal life",
       "Early career",
@@ -454,12 +402,40 @@ const ARTICLES = [
       "Elections → 2013 presidential campaign",
       "Elections → 2018 presidential campaign",
       "Elections → 2024 presidential campaign",
-      "Elections → Electoral history"
-    ]
+      "Elections → Electoral history",
+    ],
   },
   {
-    date: "2026-01-14",
+    date: "2026-01-15",
+    answer: "Whoopi Goldberg",
+    thumbnail:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Whoopi_Goldberg_Springsteen-71_%28cropped%29.jpg/330px-Whoopi_Goldberg_Springsteen-71_%28cropped%29.jpg",
+    extract:
+      "Caryn Elaine Johnson, known professionally as Whoopi Goldberg, is an American actor, comedian, author, and television personality. The recipient of numerous accolades, she is one of few people to receive an Emmy Award, Grammy Award, Academy Award, and Tony Award, collectively known as the EGOT. In 2001, she received the Mark Twain Prize for American Humor.",
+    sections: [
+      "Early life",
+      "Career",
+      "Career → 1980s: Early work and recognition",
+      "Career → 1990s: Mainstream breakthrough",
+      "Career → 2000s: Established actor and career expansion",
+      "Career → 2010s: Television and stage focus",
+      "Career → 2020s: Current work",
+      "Other ventures",
+      "Other ventures → Activism",
+      "Other ventures → Entrepreneurship",
+      "Artistry",
+      "Personal life",
+      "Acting credits and awards",
+      "Discography",
+    ],
+  },
+  {
+    date: "2026-01-16",
     answer: "Mao Zedong",
+    thumbnail:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Mao_Zedong_1950_Portait_%283x4_cropped%29.jpg/330px-Mao_Zedong_1950_Portait_%283x4_cropped%29.jpg",
+    extract:
+      "Mao Zedong was a Chinese politician, revolutionary, and political theorist who founded the People's Republic of China (PRC) in 1949 and led the country from its establishment until his death in 1976. Mao served as Chairman of the Chinese Communist Party (CCP) from 1943 until his death, and as the party's de facto leader from 1935. His theories, which he advocated as a Chinese adaptation of Marxism–Leninism, are known as Maoism.",
     sections: [
       "English romanisation of name",
       "Early life",
@@ -492,9 +468,9 @@ const ARTICLES = [
       "Writings and calligraphy → Literary works",
       "Portrayal in media",
       "Portrayal in media → General",
-      "Portrayal in media → Commentary"
-    ]
-  }
+      "Portrayal in media → Commentary",
+    ],
+  },
 ];
 
 // You can optionally encode the articles array to prevent casual spoilers
