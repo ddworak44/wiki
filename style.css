@@ -212,6 +212,38 @@ h2 {
     margin: 15px 0;
 }
 
+.answer-reveal {
+    background-color: #f8f8f8;
+    border: 2px solid #cccccc;
+    padding: 20px;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.answer-reveal h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.3em;
+    border: none;
+}
+
+.answer-thumbnail {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    border: 2px solid #000000;
+    margin: 15px auto;
+    display: block;
+}
+
+.answer-description {
+    text-align: left;
+    line-height: 1.6;
+    margin: 15px 0 0 0;
+    padding: 15px;
+    background-color: #ffffff;
+    border-left: 3px solid #0645ad;
+}
+
 #score-display {
     font-size: 1.8em;
     letter-spacing: 2px;

@@ -122,7 +122,11 @@ function getArticleTitlePromise(urlName) {
               `  [Summary API] Full Response:\n${JSON.stringify(json, null, 2)}`
             );
             if (json.title) {
-              resolve(json.title);
+              resolve({
+                title: json.title,
+                thumbnail: json.thumbnail?.source || null,
+                extract: json.extract || null
+              });
             } else {
               reject(new Error("No title found in response"));
             }
@@ -142,8 +146,9 @@ function scrapeWikipediaPromise(input) {
 
       console.log(`  Fetching: ${urlName}...`);
 
-      // First get the proper article title
-      const articleTitle = await getArticleTitlePromise(urlName);
+      // First get the proper article title and metadata
+      const articleMetadata = await getArticleTitlePromise(urlName);
+      const articleTitle = articleMetadata.title;
 
       // Then fetch the HTML content
       const url = `https://en.wikipedia.org/api/rest_v1/page/html/${encodeURIComponent(
@@ -196,7 +201,12 @@ function scrapeWikipediaPromise(input) {
                 console.log(
                   `\n  ✓ "${articleTitle}" - ${sections.length} sections`
                 );
-                resolve({ answer: articleTitle, sections });
+                resolve({
+                  answer: articleTitle,
+                  sections,
+                  thumbnail: articleMetadata.thumbnail,
+                  extract: articleMetadata.extract
+                });
               }
             } catch (error) {
               reject(error);
@@ -262,6 +272,14 @@ const ARTICLES = [\n`;
     content += `  {\n`;
     content += `    date: "${article.date}",\n`;
     content += `    answer: "${article.answer}",\n`;
+    if (article.thumbnail) {
+      content += `    thumbnail: "${article.thumbnail}",\n`;
+    }
+    if (article.extract) {
+      // Escape quotes and newlines in extract
+      const escapedExtract = article.extract.replace(/"/g, '\\"').replace(/\n/g, ' ');
+      content += `    extract: "${escapedExtract}",\n`;
+    }
     content += `    sections: [\n`;
     article.sections.forEach((section, sIndex) => {
       const comma = sIndex < article.sections.length - 1 ? "," : "";
@@ -316,6 +334,8 @@ async function processQueue() {
         date: currentDate,
         answer: articleData.answer,
         sections: articleData.sections,
+        thumbnail: articleData.thumbnail,
+        extract: articleData.extract
       });
 
       // Add small delay to be nice to Wikipedia's servers

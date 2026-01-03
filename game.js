@@ -229,11 +229,24 @@ function showGameOver(won) {
     resultMessage.style.color = "#cc0000";
   }
 
-  // Show article link
+  // Show article link with image and description
   const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(
     currentArticle.answer.replace(/ /g, "_")
   )}`;
-  articleLink.innerHTML = `The answer was: <a href="${wikiUrl}" target="_blank">${currentArticle.answer}</a>`;
+
+  let articleHTML = `<div class="answer-reveal">`;
+  articleHTML += `<h3>The answer was: <a href="${wikiUrl}" target="_blank">${currentArticle.answer}</a></h3>`;
+
+  if (currentArticle.thumbnail) {
+    articleHTML += `<img src="${currentArticle.thumbnail}" alt="${currentArticle.answer}" class="answer-thumbnail">`;
+  }
+
+  if (currentArticle.extract) {
+    articleHTML += `<p class="answer-description">${currentArticle.extract}</p>`;
+  }
+
+  articleHTML += `</div>`;
+  articleLink.innerHTML = articleHTML;
 
   // Generate score visualization
   const score = generateScoreSquares();
