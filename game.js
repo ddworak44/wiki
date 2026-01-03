@@ -125,21 +125,15 @@ function checkAnswer(guess, answer) {
 function renderSections() {
     sectionsList.innerHTML = '';
 
-    currentArticle.sections.forEach((section, index) => {
+    // Only render revealed sections (not all sections)
+    revealedSections.forEach((section, index) => {
         const li = document.createElement('li');
+        li.textContent = section;
+        li.className = 'revealed';
 
-        if (index < revealedSections.length) {
-            // Revealed section
-            li.textContent = section;
-            li.className = 'revealed';
-
-            // Check if it's a nested section (contains →)
-            if (section.includes('→')) {
-                li.classList.add('nested');
-            }
-        } else {
-            // Hidden section
-            li.textContent = '???';
+        // Check if it's a nested section (contains →)
+        if (section.includes('→')) {
+            li.classList.add('nested');
         }
 
         sectionsList.appendChild(li);
