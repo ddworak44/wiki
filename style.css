@@ -178,6 +178,8 @@ h2 {
     letter-spacing: 2px;
     margin: 20px 0;
     font-family: monospace;
+    white-space: pre-line;
+    line-height: 1.2;
 }
 
 #share-button {

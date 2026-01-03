@@ -179,10 +179,10 @@ function generateScoreSquares() {
     const remaining = currentArticle.sections.length - revealed;
 
     // Purple for revealed (used), blue for remaining (unused/better score)
-    const purpleSquares = '🟪'.repeat(revealed);
-    const blueSquares = '🟦'.repeat(remaining);
+    const purpleSquares = '🟪\n'.repeat(revealed);
+    const blueSquares = '🟦\n'.repeat(remaining);
 
-    return blueSquares + purpleSquares;
+    return purpleSquares + blueSquares;
 }
 
 function shareResult() {
