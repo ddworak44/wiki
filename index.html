@@ -1,128 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WikiGuess - Daily Wikipedia Game</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="container">
-        <header>
-            <div class="header-icons">
-                <button class="icon-button" id="info-button" title="How to play">ℹ️</button>
-                <button class="icon-button" id="source-button" title="Data source">?</button>
+      <header>
+        <div class="header-icons">
+          <button class="icon-button" id="info-button" title="How to play">
+            ℹ️
+          </button>
+          <button class="icon-button" id="source-button" title="Data source">
+            ?
+          </button>
+        </div>
+        <h1>WikiGuess</h1>
+        <p class="subtitle">A daily Wikipedia guessing game</p>
+      </header>
+
+      <main id="game-container">
+        <div id="game-info">
+          <p>Guess today's Wikipedia article from its table of contents.</p>
+          <p>Each wrong guess reveals the next section.</p>
+        </div>
+
+        <div id="sections-container">
+          <h2>Contents</h2>
+          <ol id="sections-list" start="1"></ol>
+        </div>
+
+        <div id="guess-container">
+          <input
+            type="text"
+            id="guess-input"
+            placeholder="Enter your guess..."
+            autocomplete="off"
+          />
+          <button id="submit-guess">Submit Guess</button>
+          <p id="feedback"></p>
+        </div>
+
+        <div id="game-over" style="display: none">
+          <h2 id="result-message"></h2>
+          <p id="article-link"></p>
+          <div id="score-display"></div>
+
+          <div id="statistics">
+            <h3>Statistics</h3>
+            <div id="stats-grid">
+              <div class="stat">
+                <div class="stat-value" id="games-played">0</div>
+                <div class="stat-label">Played</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value" id="win-rate">0</div>
+                <div class="stat-label">Win %</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value" id="current-streak">0</div>
+                <div class="stat-label">Streak</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value" id="best-streak">0</div>
+                <div class="stat-label">Best</div>
+              </div>
             </div>
-            <h1>WikiGuess</h1>
-            <p class="subtitle">A daily Wikipedia guessing game</p>
-        </header>
+          </div>
 
-        <main id="game-container">
-            <div id="game-info">
-                <p>Guess today's Wikipedia article from its table of contents.</p>
-                <p>Each wrong guess reveals the next section.</p>
-            </div>
+          <button id="share-button">Copy Result</button>
+          <p id="next-puzzle">Next puzzle in: <span id="countdown"></span></p>
+        </div>
 
-            <div id="sections-container">
-                <h2>Contents</h2>
-                <ol id="sections-list" start="1"></ol>
-            </div>
+        <div id="stats">
+          <p>
+            Attempts: <span id="attempt-count">0</span> /
+            <span id="total-sections">0</span>
+          </p>
+          <button id="clear-state" class="text-button">Clear State</button>
+        </div>
+      </main>
 
-            <div id="guess-container">
-                <input
-                    type="text"
-                    id="guess-input"
-                    placeholder="Enter your guess..."
-                    autocomplete="off"
-                >
-                <button id="submit-guess">Submit Guess</button>
-                <p id="feedback"></p>
-            </div>
-
-            <div id="game-over" style="display: none;">
-                <h2 id="result-message"></h2>
-                <p id="article-link"></p>
-                <div id="score-display"></div>
-
-                <div id="statistics">
-                    <h3>Statistics</h3>
-                    <div id="stats-grid">
-                        <div class="stat">
-                            <div class="stat-value" id="games-played">0</div>
-                            <div class="stat-label">Played</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-value" id="win-rate">0</div>
-                            <div class="stat-label">Win %</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-value" id="current-streak">0</div>
-                            <div class="stat-label">Streak</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-value" id="best-streak">0</div>
-                            <div class="stat-label">Best</div>
-                        </div>
-                    </div>
-                </div>
-
-                <button id="share-button">Copy Result</button>
-                <p id="next-puzzle">Next puzzle in: <span id="countdown"></span></p>
-            </div>
-
-            <div id="stats">
-                <p>Attempts: <span id="attempt-count">0</span> / <span id="total-sections">0</span></p>
-                <button id="clear-state" class="text-button">Clear State</button>
-            </div>
-        </main>
-
-        <footer>
-            <p>A tribute to Wikipedia and the early web</p>
-            <p><a href="https://wikipedia.org">Visit Wikipedia</a></p>
-        </footer>
+      <footer>
+        <p><a href="https://wikipedia.org">Visit Wikipedia</a></p>
+      </footer>
     </div>
 
     <!-- Info Modal -->
     <div id="info-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" data-modal="info-modal">&times;</span>
-            <h2>How to Play</h2>
-            <div class="modal-body">
-                <p><strong>Objective:</strong> Guess the Wikipedia article based on its table of contents.</p>
-                <p><strong>Rules:</strong></p>
-                <ul>
-                    <li>You'll see the first section heading to start</li>
-                    <li>Type your guess and submit</li>
-                    <li>Each wrong guess reveals the next section</li>
-                    <li>Try to guess with as few attempts as possible!</li>
-                </ul>
-                <p><strong>Scoring:</strong> 🟩 = correct, 🟥 = incorrect</p>
-                <p>A new puzzle is available every day at midnight UTC.</p>
-            </div>
+      <div class="modal-content">
+        <span class="close-button" data-modal="info-modal">&times;</span>
+        <h2>How to Play</h2>
+        <div class="modal-body">
+          <p>
+            <strong>Objective:</strong> Guess the Wikipedia article based on its
+            table of contents.
+          </p>
+          <p><strong>Rules:</strong></p>
+          <ul>
+            <li>You'll see the first section heading to start</li>
+            <li>Type your guess and submit</li>
+            <li>Each wrong guess reveals the next section</li>
+            <li>Try to guess with as few attempts as possible!</li>
+          </ul>
+          <p><strong>Scoring:</strong> 🟩 = correct, 🟥 = incorrect</p>
+          <p>A new puzzle is available every day at midnight UTC.</p>
         </div>
+      </div>
     </div>
 
     <!-- Source Modal -->
     <div id="source-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" data-modal="source-modal">&times;</span>
-            <h2>Data Source</h2>
-            <div class="modal-body">
-                <p><strong>Wikipedia API</strong></p>
-                <p>This game uses data from the <a href="https://www.mediawiki.org/wiki/API:Main_page" target="_blank" rel="noopener noreferrer">Wikipedia API</a> (MediaWiki API).</p>
-                <p>Article content and table of contents are fetched from Wikipedia. The displayed information may differ slightly from what you see on the Wikipedia website due to:</p>
-                <ul>
-                    <li>Recent edits or updates to articles</li>
-                    <li>Differences in how the API structures data</li>
-                    <li>Simplified formatting for gameplay</li>
-                </ul>
-                <p>All content is sourced from <a href="https://wikipedia.org" target="_blank" rel="noopener noreferrer">Wikipedia</a>, the free encyclopedia.</p>
-            </div>
+      <div class="modal-content">
+        <span class="close-button" data-modal="source-modal">&times;</span>
+        <h2>Data Source</h2>
+        <div class="modal-body">
+          <p><strong>Wikipedia API</strong></p>
+          <p>
+            This game uses data from the
+            <a
+              href="https://www.mediawiki.org/wiki/API:Main_page"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Wikipedia API</a
+            >
+            (MediaWiki API).
+          </p>
+          <p>
+            Article content and table of contents are fetched from Wikipedia.
+            The displayed information may differ slightly from what you see on
+            the Wikipedia website due to:
+          </p>
+          <ul>
+            <li>Recent edits or updates to articles</li>
+            <li>Differences in how the API structures data</li>
+            <li>Simplified formatting for gameplay</li>
+          </ul>
+          <p>
+            All content is sourced from
+            <a
+              href="https://wikipedia.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Wikipedia</a
+            >, the free encyclopedia.
+          </p>
         </div>
+      </div>
     </div>
 
     <script src="articles.js"></script>
     <script src="game.js"></script>
     <script src="modals.js"></script>
-</body>
+  </body>
 </html>
