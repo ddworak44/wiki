@@ -226,7 +226,8 @@ h2 {
     background-color: #f8f8f8;
     border: 2px solid #000000;
     cursor: pointer;
-    margin: 10px 0;
+    margin: 15px auto 20px auto;
+    display: block;
 }
 
 #share-button:hover {

@@ -6,4 +6,4 @@
 # Just browse Wikipedia, copy URLs, and paste them here!
 # Run: node batch-processor.js whenever you're ready to generate articles
 
-https://en.wikipedia.org/wiki/Queen_(band)
+https://en.wikipedia.org/wiki/Mao_Zedong

@@ -123,9 +123,35 @@ function checkAnswer(guess, answer) {
     const normalizedGuess = guess.toLowerCase().replace(/\s+/g, ' ').trim();
     const normalizedAnswer = answer.toLowerCase().replace(/\s+/g, ' ').trim();
 
-    // Check if guess matches answer or is contained in answer
-    return normalizedAnswer.includes(normalizedGuess) ||
-           normalizedGuess.includes(normalizedAnswer);
+    // Require minimum 3 characters to prevent single letter matches
+    if (normalizedGuess.length < 3) {
+        return false;
+    }
+
+    // Remove parenthetical content from answer for main comparison
+    // e.g., "Queen (band)" becomes "Queen"
+    const answerWithoutParens = normalizedAnswer.replace(/\s*\([^)]*\)/g, '').trim();
+
+    // Check for exact match
+    if (normalizedGuess === normalizedAnswer || normalizedGuess === answerWithoutParens) {
+        return true;
+    }
+
+    // Extract meaningful words (3+ characters) from both
+    const guessWords = normalizedGuess.split(/\s+/).filter(w => w.length >= 3);
+    const answerWords = answerWithoutParens.split(/\s+/).filter(w => w.length >= 3);
+
+    // Check if all guess words are found in answer words (allows partial word matching)
+    const allGuessWordsMatch = guessWords.every(guessWord =>
+        answerWords.some(answerWord =>
+            answerWord.includes(guessWord) || guessWord.includes(answerWord)
+        )
+    );
+
+    // Also check if the main answer starts with the guess
+    const startsWithGuess = answerWithoutParens.startsWith(normalizedGuess);
+
+    return allGuessWordsMatch || startsWithGuess;
 }
 
 function renderSections() {
