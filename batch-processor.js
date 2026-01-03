@@ -23,38 +23,49 @@ function stripHtmlTags(html) {
 
 function extractSections(html, articleName) {
   const sections = [];
-  // Capture everything between h2 and h3 tags (including nested spans)
-  const h2Regex = /<h2[^>]*>(.*?)<\/h2>/gs;
-  const h3Regex = /<h3[^>]*>(.*?)<\/h3>/gs;
   const headings = [];
-  let match;
 
-  while ((match = h2Regex.exec(html)) !== null) {
-    const rawTitle = match[1];
-    const title = cleanTitle(stripHtmlTags(rawTitle));
-    if (shouldIncludeSection(title)) {
-      headings.push({ level: 2, title, position: match.index });
+  // Extract all heading levels (H2 through H6)
+  for (let level = 2; level <= 6; level++) {
+    const regex = new RegExp(`<h${level}[^>]*>(.*?)</h${level}>`, 'gs');
+    let match;
+
+    while ((match = regex.exec(html)) !== null) {
+      const rawTitle = match[1];
+      const title = cleanTitle(stripHtmlTags(rawTitle));
+      if (shouldIncludeSection(title)) {
+        headings.push({ level, title, position: match.index });
+      }
     }
   }
 
-  while ((match = h3Regex.exec(html)) !== null) {
-    const rawTitle = match[1];
-    const title = cleanTitle(stripHtmlTags(rawTitle));
-    if (shouldIncludeSection(title)) {
-      headings.push({ level: 3, title, position: match.index });
-    }
-  }
-
+  // Sort by position in document
   headings.sort((a, b) => a.position - b.position);
-  let currentH2 = null;
+
+  // Build hierarchical structure with dynamic depth
+  const hierarchy = {}; // Track current parent at each level
 
   for (const heading of headings) {
-    if (heading.level === 2) {
-      sections.push(heading.title);
-      currentH2 = heading.title;
-    } else if (heading.level === 3 && currentH2) {
-      sections.push(`${currentH2} → ${heading.title}`);
+    const level = heading.level;
+
+    // Update hierarchy at current level
+    hierarchy[level] = heading.title;
+
+    // Clear deeper levels
+    for (let i = level + 1; i <= 6; i++) {
+      delete hierarchy[i];
     }
+
+    // Build path from all parent levels
+    const path = [];
+    for (let i = 2; i <= level; i++) {
+      if (hierarchy[i]) {
+        path.push(hierarchy[i]);
+      }
+    }
+
+    // Join with arrows
+    sections.push(path.join(' → '));
   }
 
   return sections;

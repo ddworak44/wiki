@@ -114,42 +114,106 @@ async function scrapeWikipediaArticle(articleName) {
 function extractSections(html) {
   const sections = [];
 
-  // Match h2 and h3 headings - capture everything between tags
-  const h2Regex = /<h2[^>]*>(.*?)<\/h2>/gs;
-  const h3Regex = /<h3[^>]*>(.*?)<\/h3>/gs;
+  // Try to find the TOC structure first (more reliable)
+  const tocMatch = html.match(/<ul class="vector-toc-contents"[^>]*>([\s\S]*?)<\/ul>/);
 
+  if (tocMatch) {
+    // Parse the TOC structure
+    const tocHtml = tocMatch[1];
+
+    // Match each TOC item with its level
+    const itemRegex = /<li id="toc-([^"]+)" class="vector-toc-list-item vector-toc-level-(\d+)[^"]*">/g;
+    const textRegex = /<span>([^<]+)<\/span>\s*<\/div>/;
+
+    let match;
+    const items = [];
+
+    while ((match = itemRegex.exec(tocHtml)) !== null) {
+      const id = match[1];
+      const level = parseInt(match[2]);
+      const startPos = match.index;
+
+      // Find the next 200 chars to get the text
+      const snippet = tocHtml.substring(startPos, startPos + 500);
+      const textMatch = snippet.match(textRegex);
+
+      if (textMatch) {
+        const title = cleanTitle(stripHtmlTags(textMatch[1]));
+        if (shouldIncludeSection(title)) {
+          items.push({ level, title });
+        }
+      }
+    }
+
+    // Build hierarchical structure
+    let currentLevel1 = null;
+    let currentLevel2 = null;
+
+    for (const item of items) {
+      if (item.level === 1) {
+        sections.push(item.title);
+        currentLevel1 = item.title;
+        currentLevel2 = null;
+      } else if (item.level === 2 && currentLevel1) {
+        sections.push(`${currentLevel1} → ${item.title}`);
+        currentLevel2 = item.title;
+      } else if (item.level === 3 && currentLevel1 && currentLevel2) {
+        sections.push(`${currentLevel1} → ${currentLevel2} → ${item.title}`);
+      }
+    }
+
+    return sections;
+  }
+
+  // Fallback to H2/H3 parsing if TOC not found
+  return extractSectionsFromHeadings(html);
+}
+
+function extractSectionsFromHeadings(html) {
+  const sections = [];
   const headings = [];
-  let match;
 
-  while ((match = h2Regex.exec(html)) !== null) {
-    const rawTitle = match[1];
-    const title = cleanTitle(stripHtmlTags(rawTitle));
-    if (shouldIncludeSection(title)) {
-      headings.push({ level: 2, title, position: match.index });
+  // Extract all heading levels (H2 through H6)
+  for (let level = 2; level <= 6; level++) {
+    const regex = new RegExp(`<h${level}[^>]*>(.*?)</h${level}>`, 'gs');
+    let match;
+
+    while ((match = regex.exec(html)) !== null) {
+      const rawTitle = match[1];
+      const title = cleanTitle(stripHtmlTags(rawTitle));
+      if (shouldIncludeSection(title)) {
+        headings.push({ level, title, position: match.index });
+      }
     }
   }
 
-  while ((match = h3Regex.exec(html)) !== null) {
-    const rawTitle = match[1];
-    const title = cleanTitle(stripHtmlTags(rawTitle));
-    if (shouldIncludeSection(title)) {
-      headings.push({ level: 3, title, position: match.index });
-    }
-  }
-
-  // Sort by position
+  // Sort by position in document
   headings.sort((a, b) => a.position - b.position);
 
-  // Build hierarchical structure
-  let currentH2 = null;
+  // Build hierarchical structure with dynamic depth
+  const hierarchy = {}; // Track current parent at each level
 
   for (const heading of headings) {
-    if (heading.level === 2) {
-      sections.push(heading.title);
-      currentH2 = heading.title;
-    } else if (heading.level === 3 && currentH2) {
-      sections.push(`${currentH2} → ${heading.title}`);
+    const level = heading.level;
+
+    // Update hierarchy at current level
+    hierarchy[level] = heading.title;
+
+    // Clear deeper levels
+    for (let i = level + 1; i <= 6; i++) {
+      delete hierarchy[i];
     }
+
+    // Build path from all parent levels
+    const path = [];
+    for (let i = 2; i <= level; i++) {
+      if (hierarchy[i]) {
+        path.push(hierarchy[i]);
+      }
+    }
+
+    // Join with arrows
+    sections.push(path.join(' → '));
   }
 
   return sections;
