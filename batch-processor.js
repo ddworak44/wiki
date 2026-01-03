@@ -156,6 +156,7 @@ function scrapeWikipediaPromise(input) {
           });
           res.on("end", () => {
             try {
+              console.log(data);
               const sections = extractSections(data, articleTitle);
               if (sections.length === 0) {
                 reject(new Error(`No sections found for "${articleTitle}"`));
