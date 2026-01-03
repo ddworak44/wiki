@@ -16,23 +16,30 @@ const https = require("https");
 const path = require("path");
 
 // Import scraping functions from scraper.js
+function stripHtmlTags(html) {
+  // Remove all HTML tags
+  return html.replace(/<[^>]*>/g, '');
+}
+
 function extractSections(html, articleName) {
   const sections = [];
-  // Updated regex to match current Wikipedia HTML structure
-  const h2Regex = /<h2[^>]*id="([^"]+)"[^>]*>([^<]+)</g;
-  const h3Regex = /<h3[^>]*id="([^"]+)"[^>]*>([^<]+)</g;
+  // Capture everything between h2 and h3 tags (including nested spans)
+  const h2Regex = /<h2[^>]*>(.*?)<\/h2>/gs;
+  const h3Regex = /<h3[^>]*>(.*?)<\/h3>/gs;
   const headings = [];
   let match;
 
   while ((match = h2Regex.exec(html)) !== null) {
-    const title = cleanTitle(match[2]);
+    const rawTitle = match[1];
+    const title = cleanTitle(stripHtmlTags(rawTitle));
     if (shouldIncludeSection(title)) {
       headings.push({ level: 2, title, position: match.index });
     }
   }
 
   while ((match = h3Regex.exec(html)) !== null) {
-    const title = cleanTitle(match[2]);
+    const rawTitle = match[1];
+    const title = cleanTitle(stripHtmlTags(rawTitle));
     if (shouldIncludeSection(title)) {
       headings.push({ level: 3, title, position: match.index });
     }
@@ -60,6 +67,7 @@ function cleanTitle(title) {
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
+    .replace(/&nbsp;/g, ' ')
     .trim();
 }
 
