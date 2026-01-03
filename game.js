@@ -175,37 +175,64 @@ function showGameOver(won) {
 }
 
 function generateScoreSquares() {
-    const revealed = revealedSections.length;
-    const remaining = currentArticle.sections.length - revealed;
+    // Group sections by parent (sections without → are their own parent)
+    const sectionGroups = [];
 
-    // Purple for revealed (used), blue for remaining (unused/better score)
-    const purpleSquares = '🟪\n'.repeat(revealed);
-    const blueSquares = '🟦\n'.repeat(remaining);
+    currentArticle.sections.forEach(section => {
+        if (section.includes('→')) {
+            // This is a subsection
+            const parent = section.split('→')[0].trim();
+            // Find or create the parent group
+            let group = sectionGroups.find(g => g.parent === parent);
+            if (!group) {
+                group = { parent: parent, subsections: [] };
+                sectionGroups.push(group);
+            }
+            group.subsections.push(section);
+        } else {
+            // This is a main section
+            let group = sectionGroups.find(g => g.parent === section);
+            if (!group) {
+                sectionGroups.push({ parent: section, subsections: [] });
+            }
+        }
+    });
 
-    return purpleSquares + blueSquares;
+    // Generate rows for each group
+    const rows = sectionGroups.map(group => {
+        let row = '';
+
+        // Check if parent section is revealed
+        const parentRevealed = revealedSections.includes(group.parent);
+        row += parentRevealed ? '🟪' : '🟦';
+
+        // Add subsections
+        group.subsections.forEach(subsection => {
+            const subsectionRevealed = revealedSections.includes(subsection);
+            row += subsectionRevealed ? '🟪' : '🟦';
+        });
+
+        return row;
+    });
+
+    return rows.join('\n');
 }
 
 function shareResult() {
     const revealed = revealedSections.length;
     const total = currentArticle.sections.length;
     const score = generateScoreSquares();
+    const shortDate = getShortDateString();
 
-    const text = `WikiGuess ${getDateString()}\n${revealed}/${total} sections\n${score}\n\n${window.location.href}`;
+    const text = `WikiGuess\n${shortDate}\n${score}`;
 
-    // Try to use native share API, fallback to clipboard
-    if (navigator.share) {
-        navigator.share({
-            text: text
-        }).catch(() => copyToClipboard(text));
-    } else {
-        copyToClipboard(text);
-    }
+    copyToClipboard(text);
 }
 
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
         const originalText = shareButton.textContent;
-        shareButton.textContent = 'Copied!';
+        shareButton.textContent = '✓ Copied to clipboard!';
         setTimeout(() => {
             shareButton.textContent = originalText;
         }, 2000);
@@ -221,6 +248,14 @@ function getDateString() {
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+}
+
+function getShortDateString() {
+    const now = new Date();
+    const year = String(now.getFullYear()).slice(-2);
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    return `${month}/${day}/${year}`;
 }
 
 function getTodaysArticle() {
