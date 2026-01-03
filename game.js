@@ -79,7 +79,9 @@ function setupEventListeners() {
 }
 
 function handleGuess() {
-  if (gameOver) return;
+  if (gameOver) {
+    return;
+  }
 
   const guess = guessInput.value.trim();
 
@@ -227,7 +229,7 @@ function generateScoreSquares() {
       group.subsections.push(section);
     } else {
       // This is a main section
-      let group = sectionGroups.find((g) => g.parent === section);
+      const group = sectionGroups.find((g) => g.parent === section);
       if (!group) {
         sectionGroups.push({ parent: section, subsections: [] });
       }

@@ -56,8 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Close modals with Escape key
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      if (infoModal) infoModal.classList.remove("active");
-      if (sourceModal) sourceModal.classList.remove("active");
+      if (infoModal) {
+        infoModal.classList.remove("active");
+      }
+      if (sourceModal) {
+        sourceModal.classList.remove("active");
+      }
     }
   });
 });

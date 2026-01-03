@@ -106,8 +106,10 @@ function getArticleTitlePromise(urlName) {
     https
       .get(url, options, (res) => {
         console.log(`\n  [Summary API] Status: ${res.statusCode}`);
-        console.log(`  [Summary API] Last-Modified: ${res.headers['last-modified'] || 'N/A'}`);
-        console.log(`  [Summary API] ETag: ${res.headers['etag'] || 'N/A'}`);
+        console.log(
+          `  [Summary API] Last-Modified: ${res.headers["last-modified"] || "N/A"}`
+        );
+        console.log(`  [Summary API] ETag: ${res.headers["etag"] || "N/A"}`);
 
         let data = "";
         res.on("data", (chunk) => {
@@ -116,7 +118,9 @@ function getArticleTitlePromise(urlName) {
         res.on("end", () => {
           try {
             const json = JSON.parse(data);
-            console.log(`  [Summary API] Full Response:\n${JSON.stringify(json, null, 2)}`);
+            console.log(
+              `  [Summary API] Full Response:\n${JSON.stringify(json, null, 2)}`
+            );
             if (json.title) {
               resolve(json.title);
             } else {
@@ -156,9 +160,13 @@ function scrapeWikipediaPromise(input) {
       https
         .get(url, options, (res) => {
           console.log(`\n  [HTML API] Status: ${res.statusCode}`);
-          console.log(`  [HTML API] Last-Modified: ${res.headers['last-modified'] || 'N/A'}`);
-          console.log(`  [HTML API] ETag: ${res.headers['etag'] || 'N/A'}`);
-          console.log(`  [HTML API] Content-Type: ${res.headers['content-type'] || 'N/A'}`);
+          console.log(
+            `  [HTML API] Last-Modified: ${res.headers["last-modified"] || "N/A"}`
+          );
+          console.log(`  [HTML API] ETag: ${res.headers["etag"] || "N/A"}`);
+          console.log(
+            `  [HTML API] Content-Type: ${res.headers["content-type"] || "N/A"}`
+          );
 
           let data = "";
           res.on("data", (chunk) => {
@@ -166,9 +174,15 @@ function scrapeWikipediaPromise(input) {
           });
           res.on("end", () => {
             try {
-              console.log(`\n  [HTML API] Response length: ${data.length} chars`);
-              console.log(`  [HTML API] First 1000 chars:\n${data.substring(0, 1000)}`);
-              console.log(`  [HTML API] Last 500 chars:\n${data.substring(data.length - 500)}`);
+              console.log(
+                `\n  [HTML API] Response length: ${data.length} chars`
+              );
+              console.log(
+                `  [HTML API] First 1000 chars:\n${data.substring(0, 1000)}`
+              );
+              console.log(
+                `  [HTML API] Last 500 chars:\n${data.substring(data.length - 500)}`
+              );
 
               const sections = extractSections(data, articleTitle);
               console.log(`\n  [Extracted] Total sections: ${sections.length}`);
