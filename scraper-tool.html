@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WikiGuess Scraper Tool</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .tool-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .input-section {
+        background-color: #f8f8f8;
+        border: 2px solid #cccccc;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      #url-input {
+        width: 100%;
+        padding: 12px;
+        font-family: 'Georgia', serif;
+        font-size: 1em;
+        border: 2px solid #aaaaaa;
+        margin-bottom: 10px;
+      }
+
+      #scrape-button {
+        width: 100%;
+        padding: 12px;
+        font-family: 'Georgia', serif;
+        font-size: 1em;
+        background-color: #0645ad;
+        color: white;
+        border: 2px solid #0645ad;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      #scrape-button:hover {
+        background-color: #0b0080;
+      }
+
+      #scrape-button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+      }
+
+      .output-section {
+        background-color: #fafafa;
+        border: 2px solid #aaaaaa;
+        padding: 20px;
+        margin-bottom: 20px;
+        display: none;
+      }
+
+      .output-section.visible {
+        display: block;
+      }
+
+      .metadata {
+        background-color: #f0f0f0;
+        border-left: 3px solid #0645ad;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+
+      .metadata img {
+        max-width: 200px;
+        border: 2px solid #000000;
+        margin: 10px 0;
+      }
+
+      .sections-preview {
+        background-color: #ffffff;
+        border: 1px solid #dddddd;
+        padding: 15px;
+        margin-top: 15px;
+      }
+
+      .sections-preview ol {
+        margin: 10px 0;
+        padding-left: 25px;
+      }
+
+      .sections-preview li {
+        margin: 5px 0;
+      }
+
+      .sections-preview li.nested {
+        padding-left: 20px;
+        font-size: 0.95em;
+        color: #666;
+      }
+
+      .error-message {
+        background-color: #ffe6e6;
+        border: 2px solid #cc0000;
+        color: #cc0000;
+        padding: 15px;
+        margin: 10px 0;
+      }
+
+      .success-message {
+        background-color: #e6ffe6;
+        border: 2px solid #008000;
+        color: #008000;
+        padding: 15px;
+        margin: 10px 0;
+      }
+
+      .code-output {
+        background-color: #f8f8f8;
+        border: 2px solid #aaaaaa;
+        padding: 15px;
+        margin-top: 15px;
+        font-family: monospace;
+        font-size: 0.9em;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      .copy-button {
+        padding: 8px 16px;
+        font-family: 'Georgia', serif;
+        background-color: #f8f8f8;
+        border: 2px solid #000000;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      .copy-button:hover {
+        background-color: #e8e8e8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container tool-container">
+      <header>
+        <h1>WikiGuess Scraper Tool</h1>
+        <p class="subtitle">Preview article data before adding to queue</p>
+        <p class="archive-link-text">
+          <a href="index.html">← Back to Game</a>
+        </p>
+      </header>
+
+      <main>
+        <div class="input-section">
+          <h2>Paste Wikipedia URL</h2>
+          <input
+            type="text"
+            id="url-input"
+            placeholder="https://en.wikipedia.org/wiki/Albert_Einstein"
+          />
+          <button id="scrape-button">Scrape Article</button>
+        </div>
+
+        <div id="loading" style="display: none; text-align: center; padding: 20px;">
+          <p>⏳ Fetching article data...</p>
+        </div>
+
+        <div id="error-output"></div>
+
+        <div id="output" class="output-section">
+          <h2>Preview</h2>
+
+          <div id="metadata" class="metadata"></div>
+
+          <div class="sections-preview">
+            <h3>Table of Contents Sections (<span id="section-count">0</span>)</h3>
+            <ol id="sections-list"></ol>
+          </div>
+
+          <h3>Code for articles.js</h3>
+          <button id="copy-button" class="copy-button">Copy to Clipboard</button>
+          <div id="code-output" class="code-output"></div>
+        </div>
+      </main>
+
+      <footer>
+        <p>Tool for previewing Wikipedia article scraping</p>
+      </footer>
+    </div>
+
+    <script src="scraper-tool.js"></script>
+  </body>
+</html>
