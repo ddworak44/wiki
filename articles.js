@@ -7,7 +7,7 @@
 
 const ARTICLES = [
   {
-    date: "2026-01-04",
+    date: "2026-01-03",
     answer: "Mao Zedong",
     sections: [
       "English romanisation of name",
@@ -41,9 +41,9 @@ const ARTICLES = [
       "Writings and calligraphy → Literary works",
       "Portrayal in media",
       "Portrayal in media → General",
-      "Portrayal in media → Commentary"
-    ]
-  }
+      "Portrayal in media → Commentary",
+    ],
+  },
 ];
 
 // You can optionally encode the articles array to prevent casual spoilers
