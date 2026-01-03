@@ -48,9 +48,33 @@ Wait a few minutes for deployment to complete, then visit your URL!
 
 ## Adding New Articles
 
-### Option 1: Use the Scraper (Recommended)
+### Option 1: Batch Processor (Recommended - Set It and Forget It!)
 
-The scraper automatically extracts the table of contents from Wikipedia:
+The easiest way to add multiple articles at once:
+
+1. **Paste Wikipedia URLs into `article-queue.txt`** (one per line):
+   ```
+   https://en.wikipedia.org/wiki/Albert_Einstein
+   https://en.wikipedia.org/wiki/The_Beatles
+   https://en.wikipedia.org/wiki/Queen_(band)
+   ```
+
+2. **Run the batch processor:**
+   ```bash
+   node batch-processor.js
+   ```
+
+3. **Done!** The script will:
+   - Automatically scrape all articles from Wikipedia
+   - Fetch the proper article titles (handles special characters)
+   - Assign sequential dates starting after your last article
+   - Update `articles.js` with all new articles
+
+**Tip:** Keep a running list in `article-queue.txt`. Whenever you're browsing Wikipedia and find a good article, just copy/paste the URL into the file. Run the batch processor when you're ready to schedule them all.
+
+### Option 2: Single Article Scraper
+
+For adding one article at a time:
 
 ```bash
 node scraper.js "Article Name" "2026-01-10"
@@ -61,9 +85,9 @@ Example:
 node scraper.js "Albert Einstein" "2026-01-06"
 ```
 
-This will output formatted JSON that you can copy directly into `articles.js`.
+Copy the output into `articles.js`.
 
-### Option 2: Manual Entry
+### Option 3: Manual Entry
 
 Edit `articles.js` and add a new article object:
 
@@ -88,7 +112,7 @@ Edit `articles.js` and add a new article object:
 After adding articles:
 
 ```bash
-git add articles.js
+git add articles.js article-queue.txt
 git commit -m "Add new articles"
 git push
 ```
@@ -99,12 +123,14 @@ GitHub Pages will automatically redeploy (takes 1-2 minutes).
 
 ```
 wiki/
-├── index.html          # Main game page
-├── style.css           # Early web aesthetic styling
-├── game.js             # Game logic
-├── articles.js         # Article database
-├── scraper.js          # Wikipedia TOC scraper utility
-└── README.md           # This file
+├── index.html           # Main game page
+├── style.css            # Early web aesthetic styling
+├── game.js              # Game logic
+├── articles.js          # Article database
+├── article-queue.txt    # List of articles to process
+├── batch-processor.js   # Automated article generator
+├── scraper.js           # Single article scraper utility
+└── README.md            # This file
 ```
 
 ## Tips for Article Selection

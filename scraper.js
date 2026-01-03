@@ -51,22 +51,23 @@ function extractSections(html, articleName) {
     const sections = [];
 
     // Match h2 and h3 headings (main sections and subsections)
-    const h2Regex = /<h2[^>]*><span class="mw-headline"[^>]*>([^<]+)<\/span>/g;
-    const h3Regex = /<h3[^>]*><span class="mw-headline"[^>]*>([^<]+)<\/span>/g;
+    // Updated regex to match current Wikipedia HTML structure
+    const h2Regex = /<h2[^>]*id="([^"]+)"[^>]*>([^<]+)</g;
+    const h3Regex = /<h3[^>]*id="([^"]+)"[^>]*>([^<]+)</g;
 
     // Extract all headings with their positions
     const headings = [];
     let match;
 
     while ((match = h2Regex.exec(html)) !== null) {
-        const title = cleanTitle(match[1]);
+        const title = cleanTitle(match[2]);
         if (shouldIncludeSection(title)) {
             headings.push({ level: 2, title, position: match.index });
         }
     }
 
     while ((match = h3Regex.exec(html)) !== null) {
-        const title = cleanTitle(match[1]);
+        const title = cleanTitle(match[2]);
         if (shouldIncludeSection(title)) {
             headings.push({ level: 3, title, position: match.index });
         }

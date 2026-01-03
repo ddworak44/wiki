@@ -1,0 +1,12 @@
+# WikiGuess Article Queue
+# Paste Wikipedia URLs here, one per line
+# Lines starting with # are comments and will be ignored
+# The batch processor will generate articles in order, starting from the next available date
+#
+# Just browse Wikipedia, copy URLs, and paste them here!
+# Run: node batch-processor.js whenever you're ready to generate articles
+
+https://en.wikipedia.org/wiki/Volcano
+https://en.wikipedia.org/wiki/Queen_(band)
+https://en.wikipedia.org/wiki/Apple_Inc.
+https://en.wikipedia.org/wiki/Gold
